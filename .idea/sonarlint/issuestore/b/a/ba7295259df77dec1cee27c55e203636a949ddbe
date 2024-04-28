@@ -1,0 +1,11 @@
+
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8àÑğƒò1J$e32ffb13-6687-44c3-8c5b-f5438fe27d81
+…
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8àÑğƒò1J$f668015b-f3ab-416f-b2b4-570361b1c090
+
+java:S1128"7Remove this unused import 'org.apache.coyote.Response'.(˜ÊŠşÿÿÿÿ8°ÂÏšò1J$3e6b42d3-78f3-4e69-a18e-0b70ce5fd389
+‡
+java:S1128"DRemove this unused import 'org.springframework.http.HttpStatusCode'.(®å™Õ8°ÂÏšò1J$9af1b6c5-1805-47b6-b82b-c49a95da4d37
+’
+java:S1128	"ORemove this unused import 'org.springframework.web.bind.annotation.GetMapping'.(‡¡‰Ø8±ÂÏšò1J$cb5cf47e-7d69-4b19-badb-845906f7126b
