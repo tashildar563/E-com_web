@@ -2,6 +2,7 @@ package org.example.member;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.coyote.Response;
+import org.example.scanner.ScannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class MemberController {
     @Autowired
@@ -18,6 +22,8 @@ public class MemberController {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private ScannerService scannerService;
     @PostMapping("/member/add")
     public ResponseEntity<String> addMember(@RequestBody String memberDetails) throws JsonProcessingException {
         try {
@@ -33,7 +39,20 @@ public class MemberController {
         try {
             return memberService.validateMemberAuth(memberDetails);
         } catch (Exception e) {
-            return new ResponseEntity<>("Invalid Json Formate", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid Json Format", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/scan")
+    public ResponseEntity<Map<String,String>> scan(@RequestBody String barcode) {
+        if (barcode == null || barcode.isEmpty()) {
+            return new ResponseEntity<>(Map.of("error", "Barcode is required"), HttpStatus.BAD_REQUEST);
+        }
+        try {
+            return scannerService.getBarcodeInfo(barcode);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(new HashMap<>(), HttpStatus.BAD_REQUEST);
         }
     }
 
