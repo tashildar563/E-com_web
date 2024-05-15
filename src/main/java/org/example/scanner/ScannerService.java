@@ -2,6 +2,7 @@ package org.example.scanner;
 
 
 import org.example.member.MemberAuthEntity;
+import org.example.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,14 @@ public class ScannerService {
     private BarcodeInfoRepository barcodeInfoRepository ;
 
     @Autowired
+    private MemberService memberService;
+
+    @Autowired
     private ItemInventoryRepositoryI itemInventoryRepository ;
-    public ResponseEntity<Map<String,String>> getBarcodeInfo(String barcode) throws Exception {
-            BarcodeInfoEntity barcodeInfoEntity = barcodeInfoRepository.findItemInfoByBarcode(barcode);
+    public ResponseEntity<Map<String,String>> getBarcodeInfo(String barcodeDet) throws Exception {
+        Map<String, String> barcodeDetails = memberService.getStringStringMap(barcodeDet);
+        String barcode = barcodeDetails.get("barcode");
+        BarcodeInfoEntity barcodeInfoEntity = barcodeInfoRepository.findItemInfoByBarcode(barcode);
 
         Map<String,String> itemDetails = new HashMap<>();
             if(null!=barcodeInfoEntity){

@@ -63,7 +63,7 @@ public class MemberService {
         }
     }
 
-    private static Map<String, String> getStringStringMap(String memberDetails) throws JsonProcessingException {
+    public static Map<String, String> getStringStringMap(String memberDetails) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> member = objectMapper.readValue(memberDetails, Map.class);
         return member;
