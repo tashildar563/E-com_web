@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface MemberRepository extends JpaRepository<MemberEntity,Long> {
     @Query(
             nativeQuery = true,
-            value = "SELECT * FROM  member WHERE formatted_id = ?1 and is_deleted = false")
+            value = "SELECT * FROM  t_shop.member WHERE formatted_id = ?1 and is_deleted = false")
     MemberEntity findByFormattedId(String formattedId);
 }
