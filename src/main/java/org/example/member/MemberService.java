@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.actor.ActorEntity;
 import org.example.actor.ActorService;
+import org.example.emailUtility.EmailUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,14 +18,17 @@ import java.util.Map;
 @Service
 public class MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
+    private final ActorService actorService;
+    private final MemberAuthRepo memberAuthRepo;
+    private final EmailUtility emailUtility;
 
-    @Autowired
-    private ActorService actorService;
-
-    @Autowired
-    private MemberAuthRepo memberAuthRepo;
+    public MemberService(MemberRepository memberRepository, ActorService actorService, MemberAuthRepo memberAuthRepo, EmailUtility emailUtility) {
+        this.memberRepository = memberRepository;
+        this.actorService = actorService;
+        this.memberAuthRepo = memberAuthRepo;
+        this.emailUtility = emailUtility;
+    }
 
 @Transactional
     public void addMember(String memberDetails) throws JsonProcessingException {
@@ -81,6 +85,9 @@ public class MemberService {
         memberAuth.setUpdatedOn(LocalDateTime.now());
         memberAuth.setDeleted(false);
         memberAuthRepo.save(memberAuth);
+        StringBuilder body = new StringBuilder();
+        body.append("Member added successfully >> username: ").append(memberEntity.getFormattedId()).append(" password: ").append(firstFourCharacters);
+        emailUtility.sendEmail("arc563@outlook.com", "Member Added", body.toString());
     }
 
     public ResponseEntity<String> validateMemberAuth(String memberDetails) throws Exception {

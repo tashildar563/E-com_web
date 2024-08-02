@@ -65,6 +65,11 @@ dependencies {
 
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
+    implementation group: 'org.json', name: 'json', version: '20160810'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.slf4j:slf4j-api:2.0.0-alpha5'
 
 
     testImplementation platform('org.junit:junit-bom:5.9.1')

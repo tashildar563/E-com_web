@@ -1,6 +1,7 @@
 package org.example.member;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.emailUtility.EmailUtility;
 import org.example.scanner.ScannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class MemberController {
 
     @Autowired
     private ScannerService scannerService;
+
+    @Autowired
+    private EmailUtility emailUtility;
 
     @PostMapping("/add")
     public ResponseEntity<String> addMember(@RequestBody String memberDetails) throws JsonProcessingException {
